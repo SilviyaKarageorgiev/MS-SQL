@@ -9,6 +9,3 @@ INSERT INTO [Minions]([Id], [Name], [Age], [TownId])
 (1, 'Kevin', 22, 1),
 (2, 'Bob', 15, 3),
 (3, 'Steward', NULL, 2)
-
-SELECT * FROM [Minions]
-SELECT * FROM [Towns]

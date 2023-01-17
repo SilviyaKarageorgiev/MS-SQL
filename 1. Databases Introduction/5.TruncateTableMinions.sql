@@ -1,2 +1,2 @@
-DELETE FROM [Minions]
-DELETE FROM [Towns]
+TRUNCATE TABLE [Minions]
+TRUNCATE TABLE [Towns]

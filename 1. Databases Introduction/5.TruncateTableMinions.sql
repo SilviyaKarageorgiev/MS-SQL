@@ -1,2 +1,1 @@
 TRUNCATE TABLE [Minions]
-TRUNCATE TABLE [Towns]

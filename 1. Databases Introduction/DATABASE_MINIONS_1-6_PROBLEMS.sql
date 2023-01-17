@@ -32,8 +32,8 @@ INSERT INTO [Minions]([Id], [Name], [Age], [TownId])
 (2, 'Bob', 15, 3),
 (3, 'Steward', NULL, 2)
 
-DELETE FROM [Minions]
-DELETE FROM [Towns]
+TRUNCATE TABLE [Minions]
+TRUNCATE TABLE [Towns]
 
 DROP TABLE [Minions]
 DROP TABLE [Towns]

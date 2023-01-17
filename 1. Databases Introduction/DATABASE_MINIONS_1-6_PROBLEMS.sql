@@ -33,7 +33,6 @@ INSERT INTO [Minions]([Id], [Name], [Age], [TownId])
 (3, 'Steward', NULL, 2)
 
 TRUNCATE TABLE [Minions]
-TRUNCATE TABLE [Towns]
 
 DROP TABLE [Minions]
 DROP TABLE [Towns]

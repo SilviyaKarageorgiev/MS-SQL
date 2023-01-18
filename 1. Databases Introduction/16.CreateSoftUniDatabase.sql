@@ -7,7 +7,6 @@ CREATE TABLE [Towns](
 	[Name] NVARCHAR(50) NOT NULL,
 )
 
-
 CREATE TABLE [Addresses](
 	[Id] INT PRIMARY KEY IDENTITY(1, 1),
 	[AddressText] NVARCHAR(50),

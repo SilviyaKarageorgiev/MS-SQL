@@ -18,10 +18,10 @@ ORDER BY [Population] DESC, [CountryName]
 
   SELECT [CountryName],
          [CountryCode], 
-		 CASE [CurrencyCode]
-	     WHEN 'EUR' THEN 'Euro'
+         CASE [CurrencyCode]
+         WHEN 'EUR' THEN 'Euro'
          ELSE 'Not Euro'
-	     END
-	  AS [Currency]
+         END
+      AS [Currency]
     FROM [Countries]
 ORDER BY [CountryName]

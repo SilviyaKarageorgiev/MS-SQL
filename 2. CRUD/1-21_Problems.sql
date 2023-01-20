@@ -106,3 +106,45 @@ CREATE VIEW [V_EmployeesSalaries] AS(
        FROM [Employees])
 
 SELECT * FROM [V_EmployeesSalaries]
+
+
+-- Problem 17. Create View Employees with Job Titles
+
+CREATE VIEW [V_EmployeeNameJobTitle] AS(
+		SELECT CONCAT([FirstName], ' ', [MiddleName], ' ', [LastName])
+		    AS [Full Name], [JobTitle]
+		  FROM [Employees])
+
+SELECT * FROM [V_EmployeeNameJobTitle]
+
+
+-- Problem 18. Distinct Job Titles
+
+SELECT DISTINCT [JobTitle]
+		   FROM [Employees]
+
+
+-- Problem 19. Find First 10 Started Projects
+
+  SELECT TOP(10) * 
+    FROM [Projects]
+   WHERE [StartDate] IS NOT NULL
+ORDER BY [StartDate], [Name]
+
+
+-- Problem 20. Last 7 Hired Employees
+
+SELECT TOP(7) [FirstName], [LastName], [HireDate] 
+         FROM [Employees]
+     ORDER BY [HireDate] DESC
+
+
+-- Problem 21. Increase Salaries
+
+UPDATE [Employees]
+   SET [Salary] += 0.12 * [Salary]
+ WHERE [DepartmentID] IN (1, 2, 4, 11)
+
+SELECT [Salary] FROM [Employees]
+
+

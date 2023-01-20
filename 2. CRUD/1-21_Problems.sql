@@ -101,10 +101,8 @@ ORDER BY [Salary] DESC, [FirstName] ASC, [LastName] DESC, [MiddleName] ASC
 
 -- Problem 16. Create View Employees with Salaries
 
--- CREATE VIEW V_EmployeesSalaries AS
-SELECT [FirstName] + ' ' + [MiddleName] + ' ' + [LastName] AS [Full Name],
-	   [JobTitle] AS [Job Title]
-  FROM [Employees]
- WHERE [MiddleName] IS NULL
+CREATE VIEW [V_EmployeesSalaries] AS(
+     SELECT [FirstName], [LastName], [Salary]
+       FROM [Employees])
 
--- SELECT * FROM V_EmployeesSalaries
+SELECT * FROM [V_EmployeesSalaries]

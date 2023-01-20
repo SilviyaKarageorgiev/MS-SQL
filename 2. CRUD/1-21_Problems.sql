@@ -29,7 +29,7 @@ SELECT CONCAT([FirstName], '.', [LastName], '@', 'softuni.bg')
 SELECT * FROM [Employees]
 
 
--- Problem 7. Find All Different Employee’s Salaries
+-- Problem 7. Find All Different Employeeâ€™s Salaries
 
 SELECT DISTINCT [Salary]
 		   FROM [Employees]
@@ -50,10 +50,16 @@ SELECT [FirstName], [LastName], [JobTitle]
 
 -- Problem 10. Find Names of All Employees
 
- SELECT CONCAT ([FirstName], ' ',[MiddleName], ' ',[LastName])
-			AS [Full Name]
-		  FROM [Employees]
-		 WHERE [Salary] IN (25000, 14000, 12500, 23600)
+SELECT CONCAT ([FirstName], ' ',[MiddleName], ' ',[LastName])
+    AS [Full Name]
+  FROM [Employees]
+ WHERE [Salary] IN (25000, 14000, 12500, 23600)
+ 
+ -- With CONCAT_WS
+SELECT CONCAT_WS(' ', [FirstName], [MiddleName], [LastName])
+    AS [Full Name]
+  FROM [Employees]
+ WHERE [Salary] IN (25000, 14000, 12500, 23600)
 
 
 -- Problem 11. Find All Employees Without Manager

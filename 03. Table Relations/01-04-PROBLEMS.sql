@@ -56,18 +56,18 @@ CREATE TABLE [Models]
 
 INSERT INTO [Manufacturers]([Name], [EstablishedOn])
 	 VALUES
-			('BMW', '07/03/1916'),
-			('Tesla', '01/01/2003'),
-			('Lada', '01/05/1966')
+		('BMW', '07/03/1916'),
+		('Tesla', '01/01/2003'),
+		('Lada', '01/05/1966')
 
 INSERT INTO [Models]([Name], [ManufacturerID])
 	 VALUES
-			('X1', 1),
-			('i6', 1),
-			('Model S', 2),
-			('Model X', 2),
-			('Model 3', 2),
-			('Nova', 3)
+		('X1', 1),
+		('i6', 1),
+		('Model S', 2),
+		('Model X', 2),
+		('Model 3', 2),
+		('Nova', 3)
 
 
 -- Problem 03. Many-To-Many Relationship
@@ -93,24 +93,24 @@ CREATE TABLE [StudentsExams]
 
 INSERT INTO [Students]([Name])
 	 VALUES
-			('Mila'),
-			('Toni'),
-			('Ron')
+		('Mila'),
+		('Toni'),
+		('Ron')
 
 INSERT INTO [Exams]([Name])
 	 VALUES
-			('SpringMVC'),
-			('Neo4j'),
-			('Oracle 11g')
+		('SpringMVC'),
+		('Neo4j'),
+		('Oracle 11g')
 
 INSERT INTO [StudentsExams]([StudentID], [ExamID])
 	 VALUES
-			(1, 101),
-			(1, 102),
-			(2, 101),
-			(3, 103),
-			(2, 102),
-			(2, 103)
+		(1, 101),
+		(1, 102),
+		(2, 101),
+		(3, 103),
+		(2, 102),
+		(2, 103)
 			
 
 -- Problem 04. Self-Referencing
@@ -124,11 +124,11 @@ CREATE TABLE [Teachers]
 
 INSERT INTO [Teachers]([Name], [ManagerID])
 	 VALUES
-			('John', NULL),
-			('Maya', 106),
-			('Silvia', 106),
-			('Ted', 105),
-			('Mark', 101),
-			('Greta', 101)
+		('John', NULL),
+		('Maya', 106),
+		('Silvia', 106),
+		('Ted', 105),
+		('Mark', 101),
+		('Greta', 101)
 			
 

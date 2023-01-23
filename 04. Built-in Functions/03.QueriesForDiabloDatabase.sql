@@ -7,3 +7,11 @@ FROM [Games]
 WHERE YEAR([Start]) IN (2011, 2012)
 ORDER BY [StartDate], [Name]
 
+
+-- Problem 15. User Email Providers
+
+  SELECT [Username], SUBSTRING([Email], CHARINDEX('@', [Email], 1) + 1, LEN([Email]))
+      AS [EmailProvider]
+    FROM [Users]
+ORDER BY [EmailProvider], [Username]
+

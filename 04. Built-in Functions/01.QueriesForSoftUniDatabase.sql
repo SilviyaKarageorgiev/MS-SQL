@@ -3,6 +3,11 @@
 SELECT [FirstName], [LastName] 
   FROM [Employees]
  WHERE [FirstName] LIKE 'Sa%'
+ 
+ -- Another solution
+ SELECT [FirstName], [LastName] 
+   FROM [Employees]
+  WHERE LEFT([FirstName], 2) = 'Sa'
 
 
 -- Problem 02. Find Names of All Employees by Last Name

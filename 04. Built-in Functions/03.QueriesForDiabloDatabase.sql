@@ -15,3 +15,11 @@ ORDER BY [StartDate], [Name]
     FROM [Users]
 ORDER BY [EmailProvider], [Username]
 
+
+-- Problem 16. Get Users with IP Address Like Pattern
+
+SELECT [Username], [IpAddress] AS [IP Address]
+FROM [Users]
+WHERE [IpAddress] LIKE '___.1_%._%.___'
+ORDER BY [Username]
+

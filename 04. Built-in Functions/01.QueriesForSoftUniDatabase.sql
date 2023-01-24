@@ -53,9 +53,9 @@ ORDER BY [Name]
 ORDER BY [Name]
 
 -- Another solution
-SELECT [TownID], [Name]
-FROM [Towns]
-WHERE LEFT([Name], 1) IN ('M', 'K', 'B', 'E')
+  SELECT [TownID], [Name]
+    FROM [Towns]
+   WHERE LEFT([Name], 1) IN ('M', 'K', 'B', 'E')
 ORDER BY [Name]
 
 

@@ -15,6 +15,11 @@ SELECT [FirstName], [LastName]
 SELECT [FirstName], [LastName]
   FROM [Employees]
  WHERE [LastName] LIKE '%ei%'
+ 
+ -- Another solution
+SELECT [FirstName], [LastName]
+  FROM [Employees]
+ WHERE CHARINDEX('ei', [LastName]) > 0
 
 
 -- Problem 03. Find First Names of All Employees

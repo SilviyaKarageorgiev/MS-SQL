@@ -52,6 +52,12 @@ ORDER BY [Name]
    WHERE [Name] LIKE 'M%' OR [Name] LIKE 'K%' OR [Name] LIKE 'B%' OR [Name] LIKE 'E%'
 ORDER BY [Name]
 
+-- Another solution
+SELECT [TownID], [Name]
+FROM [Towns]
+WHERE LEFT([Name], 1) IN ('M', 'K', 'B', 'E')
+ORDER BY [Name]
+
 
 -- Problem 07. Find Towns Not Starting With
 

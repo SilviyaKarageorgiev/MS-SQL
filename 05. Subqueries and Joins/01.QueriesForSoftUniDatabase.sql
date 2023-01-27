@@ -3,10 +3,10 @@ USE [SoftUni]
 -- Problem 01. Employee Address
 
   SELECT  
-		 e.[EmployeeID],
-	     e.[JobTitle], 
-	     e.[AddressID], 
-	     a.[AddressText] 
+         e.[EmployeeID],
+	 e.[JobTitle], 
+	 e.[AddressID], 
+	 a.[AddressText] 
     FROM [Employees] AS e 
    INNER JOIN [Addresses] AS a
       ON e.[AddressID] = a.[AddressID]
@@ -20,10 +20,10 @@ SELECT * FROM [Addresses]
 
   SELECT
          TOP(50)
-	     [e].[FirstName],
-	     [e].[LastName],
-	     [t].[Name] AS [Town],
-	     [a].[AddressText]
+	 [e].[FirstName],
+	 [e].[LastName],
+	 [t].[Name] AS [Town],
+	 [a].[AddressText]
     FROM [Employees] AS [e]
     JOIN [Addresses] AS [a] ON [e].[AddressID] = [a].[AddressID]
     JOIN [Towns] AS [t] ON [a].[TownID] = [t].[TownID]
@@ -37,5 +37,4 @@ ORDER BY [e].[FirstName], [e].[LastName]
     JOIN [Departments] AS [d] ON [e].[DepartmentID] = [d].[DepartmentID]
    WHERE [d].[Name] = 'Sales'
 ORDER BY [e].[EmployeeID]
-
 

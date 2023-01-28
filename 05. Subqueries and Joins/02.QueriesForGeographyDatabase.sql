@@ -4,9 +4,9 @@ USE [Geography]
 
   SELECT [mc].[CountryCode],
          [m].[MountainRange],
-		 [p].[PeakName], 
-		 [p].[Elevation]
-	FROM [MountainsCountries] AS [mc]
+	 [p].[PeakName], 
+	 [p].[Elevation]
+    FROM [MountainsCountries] AS [mc]
     JOIN [Countries] AS [c]
       ON [mc].[CountryCode] = [c].[CountryCode]
     JOIN [Mountains] AS [m]
@@ -27,7 +27,7 @@ ORDER BY [p].[Elevation] DESC
          SELECT [CountryCode]
            FROM [Countries]
           WHERE [CountryName] IN ('United States', 'Russia', 'Bulgaria')
-                       )
+                          )
 GROUP BY [CountryCode]
 
 
@@ -35,8 +35,8 @@ GROUP BY [CountryCode]
 
    SELECT 
           TOP(5) 
-		  [c].[CountryName], 
-		  [r].[RiverName]
+	  [c].[CountryName], 
+	  [r].[RiverName]
      FROM [Countries] AS [c]
 LEFT JOIN [CountriesRivers] AS [cr]
        ON [c].[CountryCode] = [cr].[CountryCode]
@@ -53,10 +53,10 @@ LEFT JOIN [Rivers] AS [r]
 -- Problem 15. Continents and Currencies
 
 SELECT [ContinentCode], 
-	   [CurrencyCode], 
-	   [CurrencyUsage]
-FROM 
-(
+       [CurrencyCode], 
+       [CurrencyUsage]
+  FROM 
+	(
 	SELECT *, 
 	DENSE_RANK() OVER(PARTITION BY [ContinentCode] ORDER BY [CurrencyUsage] DESC)
 	AS [CurrencyRank]
@@ -68,7 +68,7 @@ FROM
 		  HAVING COUNT(*) > 1
 		 )
 	AS [CurrencyUsageSubquery]
-)
+	)
     AS [CurrencyRankingSubquery]
  WHERE [CurrencyRank] = 1
 
@@ -124,19 +124,20 @@ SELECT
 	FROM 
 		(
 			SELECT 
-				   [c].[CountryName], 
-				   [p].[PeakName], 
-				   [p].[Elevation], 
-				   [m].[MountainRange],
-			       DENSE_RANK() OVER(PARTITION BY [c].[CountryName] ORDER BY [p].[Elevation] DESC)
-				AS [PeakRank]
-			  FROM [Countries] AS [c]
+			       [c].[CountryName], 
+			       [p].[PeakName], 
+			       [p].[Elevation], 
+			       [m].[MountainRange],
+			       DENSE_RANK() OVER(PARTITION BY [c].[CountryName] ORDER BY [p].[Elevation] DESC) AS [PeakRank]
+		      FROM [Countries] AS [c]
          LEFT JOIN [MountainsCountries] AS [mc]
                 ON [mc].[CountryCode] = [c].[CountryCode]
          LEFT JOIN [Mountains] AS [m]
                 ON [mc].[MountainId] = [m].[Id]
          LEFT JOIN [Peaks] AS [p]
                 ON [p].[MountainId] = [m].[Id]
-        ) AS [PeakRankingSubquery]
+        	) 
+		AS [PeakRankingSubquery]
    WHERE [PeakRank] = 1
 ORDER BY [Country], [Highest Peak Name]
+

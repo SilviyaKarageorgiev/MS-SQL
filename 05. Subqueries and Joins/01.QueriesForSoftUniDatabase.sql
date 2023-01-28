@@ -110,3 +110,16 @@ SELECT
       ON [ep].[ProjectID] = [p].[ProjectID]
    WHERE [e].[EmployeeID] = 24
    
+
+-- Problem 09. Employee Manager
+
+  SELECT [e].[EmployeeID],
+         [e].[FirstName], 
+	 [e].[ManagerID], 
+	 [m].[FirstName]
+    FROM [Employees] AS [e]
+    JOIN [Employees] AS [m]
+      ON [e].[ManagerID] = [m].[EmployeeID]
+   WHERE [e].[ManagerID] IN (3, 7)
+ORDER BY [e].[EmployeeID]
+

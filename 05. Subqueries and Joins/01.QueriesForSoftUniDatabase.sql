@@ -38,17 +38,16 @@ ORDER BY [e].[FirstName], [e].[LastName]
    WHERE [d].[Name] = 'Sales'
 ORDER BY [e].[EmployeeID]
 
-<<<<<<< HEAD
 
 -- Problem 04. Employee Departments
 
   SELECT 
-		 TOP(5)
-		 [e].[EmployeeID],
-		 [e].[FirstName],
-		 [e].[Salary],
-		 [d].[Name] AS [DepartmentName]
-		 FROM [Employees] AS [e]
+	 TOP(5)
+	 [e].[EmployeeID],
+	 [e].[FirstName],
+	 [e].[Salary],
+	 [d].[Name] AS [DepartmentName]
+    FROM [Employees] AS [e]
     JOIN [Departments] AS [d] ON [e].[DepartmentID] = [d].[DepartmentID]
    WHERE [e].[Salary] > 15000
 ORDER BY [e].[DepartmentID]
@@ -59,7 +58,7 @@ ORDER BY [e].[DepartmentID]
    SELECT 
           TOP(3) 
           [e].[EmployeeID],
-		  [e].[FirstName]
+	  [e].[FirstName]
      FROM [Employees] AS [e]
 LEFT JOIN [EmployeesProjects] AS [ep] ON [e].[EmployeeID] = [ep].[EmployeeID]
     WHERE [ep].[ProjectID] IS NULL
@@ -70,12 +69,11 @@ LEFT JOIN [EmployeesProjects] AS [ep] ON [e].[EmployeeID] = [ep].[EmployeeID]
 
   SELECT [e].[FirstName], 
          [e].[LastName], 
-		 [e].[HireDate], 
-		 [d].[Name] AS [DeptName] 
+	 [e].[HireDate], 
+	 [d].[Name] AS [DeptName] 
     FROM [Employees] AS [e]
     JOIN [Departments] AS [d] ON [e].[DepartmentID] = [d].[DepartmentID]
    WHERE [e].[HireDate] > '1999-01-01' 
      AND [d].[Name] IN ('Sales', 'Finance')
 ORDER BY [e].[HireDate]
-=======
->>>>>>> c1024e35c3bd676ebae16294bea0db7be0287e22
+

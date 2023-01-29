@@ -1,6 +1,6 @@
 USE [Gringotts]
 
--- Problem 01. Records’ Count
+-- Problem 01. Recordsâ€™ Count
 
   SELECT COUNT(*) AS [Count]
     FROM [WizzardDeposits]
@@ -23,7 +23,7 @@ GROUP BY [w].[DepositGroup]
 -- Problem 04. Smallest Deposit Group per Magic Wand Size
 
   SELECT TOP(2)
-		 [w].[DepositGroup]       
+	 [w].[DepositGroup]       
     FROM [WizzardDeposits] AS [w]
 GROUP BY [w].[DepositGroup]
 ORDER BY AVG([w].[MagicWandSize])
@@ -58,4 +58,11 @@ ORDER BY [TotalSum] DESC
 
 
 -- Problem 08. Deposit Charge
+
+  SELECT [w].[DepositGroup], 
+         [w].[MagicWandCreator],
+	 MIN([w].[DepositCharge]) AS [MinDepositCharge]
+    FROM [WizzardDeposits] AS [w]
+GROUP BY [w].[DepositGroup], [w].[MagicWandCreator]
+ORDER BY [w].[MagicWandCreator], [w].[DepositGroup]
 

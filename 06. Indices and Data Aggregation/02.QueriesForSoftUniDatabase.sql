@@ -1,5 +1,23 @@
 USE [SoftUni]
 
+-- Problem 13. Departments Total Salaries
+
+  SELECT [DepartmentID],
+         SUM([Salary]) AS [TotalSalary]
+    FROM [Employees]
+GROUP BY [DepartmentID]
+ORDER BY [DepartmentID]
+
+
+-- Problem 14. Employees Minimum Salaries
+
+  SELECT [DepartmentID],
+         MIN([Salary]) AS [MinimumSalary]
+    FROM [Employees]
+   WHERE [DepartmentID] IN (2, 5, 7) AND [HireDate] > '01/01/2000'
+GROUP BY [DepartmentID]
+
+
 -- Problem 15. Employees Average Salaries
 
 SELECT * 
@@ -8,12 +26,12 @@ SELECT *
  WHERE [Salary] > 30000
 
 DELETE 
-FROM [EmployeesEarnMoreThan30000]
-WHERE [ManagerID] = 42
+  FROM [EmployeesEarnMoreThan30000]
+ WHERE [ManagerID] = 42
 
 UPDATE [EmployeesEarnMoreThan30000]
-SET [Salary] += 5000
-WHERE [DepartmentID] = 1
+   SET [Salary] += 5000
+ WHERE [DepartmentID] = 1
 
   SELECT [DepartmentID],
          AVG([Salary]) AS [AverageSalary]
@@ -40,15 +58,15 @@ SELECT COUNT(*) AS [Count]
 
   SELECT 
 DISTINCT [DepartmentID], 
-	     [Salary] 
-		 AS [ThirdHighestSalary]
+	 [Salary] 
+	 AS [ThirdHighestSalary]
 FROM
 	(
 	SELECT [DepartmentID], [Salary],
-			DENSE_RANK() OVER(PARTITION BY [DepartmentId] ORDER BY [Salary] DESC)
-		AS [SalaryRank]
+	       DENSE_RANK() OVER(PARTITION BY [DepartmentId] ORDER BY [Salary] DESC)
+	    AS [SalaryRank]
 	  FROM [Employees]
-	) AS [SalaryRankingSubquery]
+	)   AS [SalaryRankingSubquery]
    WHERE [SalaryRank] = 3
 
 
@@ -57,13 +75,13 @@ FROM
   SELECT TOP(10) 
          [e].[FirstName], 
          [e].[LastName],
-	     [e].[DepartmentID]
+	 [e].[DepartmentID]
     FROM [Employees] AS [e]
    WHERE [Salary] > (
 		SELECT AVG([Salary]) AS [AverageSalary]
 		  FROM [Employees] AS [eSub]
 		 WHERE [eSub].[DepartmentID] = [e].[DepartmentID]
-      GROUP BY [DepartmentID]
+              GROUP BY [DepartmentID]
 ) 
 ORDER BY [e].[DepartmentID]
 

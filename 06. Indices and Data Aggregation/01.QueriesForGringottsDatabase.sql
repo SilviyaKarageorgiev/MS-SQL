@@ -99,7 +99,7 @@ GROUP BY SUBSTRING([FirstName], 1, 1)
 ORDER BY [FirstLetter]
 
 
--- 11. Average Interest
+-- Problem 11. Average Interest
 
   SELECT [DepositGroup], [IsDepositExpired],
    	 AVG([DepositInterest]) AS [AverageInterest]

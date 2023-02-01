@@ -1,5 +1,6 @@
 CREATE DATABASE NationalTouristSitesOfBulgaria
 
+USE NationalTouristSitesOfBulgaria
 
 -- Problem 01
 
@@ -78,3 +79,37 @@ UPDATE Sites
 
 -- Problem 04
 
+DELETE FROM TouristsBonusPrizes
+WHERE BonusPrizeId = 
+(
+    SELECT Id FROM BonusPrizes
+    WHERE [Name] = 'Sleeping bag'
+)
+
+DELETE FROM BonusPrizes
+WHERE [Name] = 'Sleeping bag'
+
+
+-- Problem 05
+
+  SELECT [Name], Age, PhoneNumber, Nationality
+    FROM Tourists
+ORDER BY Nationality, Age DESC, [Name]
+
+
+-- Problem 06. Sites with Their Location and Category
+
+  SELECT 
+		 s.[Name] AS [Site], 
+		 l.[Name] AS [Location], 
+		 s.Establishment,
+         c.[Name] AS Category
+    FROM Sites AS s
+    JOIN Locations AS l
+      ON s.LocationId = l.Id
+    JOIN Categories AS c
+      ON s.CategoryId = c.Id
+ORDER BY c.[Name] DESC, l.[Name], s.[Name]
+
+
+-- Problem 07. Count of Sites in Sofia Province

@@ -82,13 +82,13 @@ CREATE FUNCTION ufn_GetSalaryLevel(@salary DECIMAL(18,4))
 RETURNS VARCHAR(10)
 AS
 	BEGIN
-			 DECLARE @salaryLevel VARCHAR(10) = 'Average'
-			     IF (@salary < 30000)
-			     SET @salaryLevel = 'Low'
-			ELSE IF (@salary > 50000)
-			     SET @salaryLevel = 'High'
+		 DECLARE @salaryLevel VARCHAR(10) = 'Average'
+		     IF (@salary < 30000)
+		     SET @salaryLevel = 'Low'
+		ELSE IF (@salary > 50000)
+		     SET @salaryLevel = 'High'
 
-			  RETURN @salaryLevel
+		  RETURN @salaryLevel
 	END
 
 GO
@@ -104,9 +104,9 @@ GO
 CREATE PROCEDURE usp_EmployeesBySalaryLevel @level VARCHAR(10)
 AS
 	BEGIN
-			SELECT [FirstName], [LastName]
-			FROM [Employees]
-			WHERE dbo.ufn_GetSalaryLevel([Salary]) = @level
+		SELECT [FirstName], [LastName]
+		  FROM [Employees]
+		 WHERE dbo.ufn_GetSalaryLevel([Salary]) = @level
 	END
 
 GO

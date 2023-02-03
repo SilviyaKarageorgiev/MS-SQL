@@ -113,3 +113,31 @@ GO
 
 EXEC dbo.usp_EmployeesBySalaryLevel 'High'
 
+
+GO
+
+-- Problem 07. Define Function
+
+CREATE FUNCTION ufn_IsWordComprised(@setOfLetters VARCHAR(20), @word VARCHAR(20))
+RETURNS BIT
+AS
+	BEGIN
+		DECLARE @index INT = 1
+		WHILE (@index <= LEN(@word))
+		BEGIN
+			DECLARE @currChar CHAR = SUBSTRING(@word, @index, 1)
+			IF (CHARINDEX(@currChar, @setOfLetters)) = 0
+				BEGIN
+					RETURN 0;
+				END
+			SET @index += 1;
+		END
+		RETURN 1;
+	END
+
+GO
+
+SELECT dbo.ufn_IsWordComprised('oistmiahf', 'Sofia')
+
+GO
+

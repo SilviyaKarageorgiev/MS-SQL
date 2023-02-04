@@ -47,6 +47,7 @@ EXEC [usp_GetTownsStartingWith] 'b'
 
 GO
 
+
 -- Another solution
 
 CREATE PROC usp_GetTownsStartingWith(@StartingWith NVARCHAR(50))
@@ -99,6 +100,7 @@ FROM [Employees]
 
 GO
 
+
 -- Problem 06. Employees by Salary Level
 
 CREATE PROCEDURE usp_EmployeesBySalaryLevel @level VARCHAR(10)
@@ -115,6 +117,7 @@ EXEC dbo.usp_EmployeesBySalaryLevel 'High'
 
 
 GO
+
 
 -- Problem 07. Define Function
 
@@ -140,6 +143,7 @@ GO
 SELECT dbo.ufn_IsWordComprised('oistmiahf', 'Sofia')
 
 GO
+
 
 -- Problem 08. *Delete Employees and Departments
 

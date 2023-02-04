@@ -8,7 +8,7 @@ CREATE PROCEDURE [usp_GetHoldersFullName]
 AS
 	BEGIN
 		SELECT CONCAT([FirstName], ' ', [LastName]) AS [Full Name]
-		FROM [AccountHolders]
+		  FROM [AccountHolders]
 	END
 
 GO
@@ -24,7 +24,7 @@ CREATE PROCEDURE [usp_GetHoldersWithBalanceHigherThan] @number MONEY
 AS
 	BEGIN
 		   SELECT [ah].[FirstName] AS [First Name],
-		   	      [ah].[LastName] AS [Last Name] 
+		   	  [ah].[LastName] AS [Last Name] 
 		     FROM [AccountHolders] AS [ah]
 		     JOIN [Accounts] AS [a]
 		       ON [ah].[Id] = [a].[AccountHolderId]
@@ -45,7 +45,7 @@ RETURNS DECIMAL(18,4)
 AS
 	BEGIN
 		DECLARE @fv DECIMAL(18,4) = @sum * (POWER((1 + @yearlyInterestRate), @years))
-		RETURN @fv
+		 RETURN @fv
 	END
 
 GO
@@ -61,14 +61,14 @@ CREATE PROCEDURE [usp_CalculateFutureValueForAccount] @accountId INT, @yearlyInt
 AS
 	BEGIN
 		SELECT [ah].[Id] AS [Account Id],
-		[ah].[FirstName] AS [First Name],
-		[ah].[LastName] AS [Last Name],
-		[a].[Balance] AS [Current Balance],
-		[dbo].[ufn_CalculateFutureValue]([a].[Balance], @yearlyInterestRate, 5) AS [Balance in 5 years]
-		FROM [AccountHolders] AS [ah]
-		JOIN [Accounts] AS [a]
-		ON [ah].[Id] = [a].[AccountHolderId]
-		WHERE [a].[Id] = @accountId
+		       [ah].[FirstName] AS [First Name],
+		       [ah].[LastName] AS [Last Name],
+		       [a].[Balance] AS [Current Balance],
+		       [dbo].[ufn_CalculateFutureValue]([a].[Balance], @yearlyInterestRate, 5) AS [Balance in 5 years]
+		  FROM [AccountHolders] AS [ah]
+		  JOIN [Accounts] AS [a]
+		    ON [ah].[Id] = [a].[AccountHolderId]
+		 WHERE [a].[Id] = @accountId
 	END
 
 GO

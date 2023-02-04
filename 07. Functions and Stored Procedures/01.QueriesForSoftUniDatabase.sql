@@ -141,3 +141,65 @@ SELECT dbo.ufn_IsWordComprised('oistmiahf', 'Sofia')
 
 GO
 
+-- Problem 08. *Delete Employees and Departments
+
+CREATE PROCEDURE usp_DeleteEmployeesFromDepartment @departmentId INT
+              AS
+           BEGIN
+                    -- We need to store all id's of the Employees that are going to be removed
+                    DECLARE @employeesToDelete TABLE ([Id] INT);            
+                    INSERT INTO @employeesToDelete
+                                SELECT [EmployeeID] 
+                                  FROM [Employees]
+                                 WHERE [DepartmentID] = @departmentId
+ 
+                    -- Employees which we are going to remove can be working on some
+                    -- projects. So we need to remove them from working on this projects.
+                    DELETE
+                      FROM [EmployeesProjects]
+                     WHERE [EmployeeID] IN (
+                                                SELECT * 
+                                                  FROM @employeesToDelete
+                                           )
+ 
+                    -- Employees which we are going to remove can be Managers of some Departments
+                    -- So we need to set ManagerID to NULL of all Departments with futurely deleted Managers
+                    -- First we need to alter column ManagerID
+                     ALTER TABLE [Departments]
+                    ALTER COLUMN [ManagerID] INT
+                    
+                    UPDATE [Departments]
+                       SET [ManagerID] = NULL
+                     WHERE [ManagerID] IN (
+                                                SELECT *
+                                                  FROM @employeesToDelete
+                                          )
+ 
+                    -- Employees which we are going to remove can be Managers of another Employees
+                    -- So we need to set ManagerID to NULL of all Employees with futurely deleted Managers
+                    UPDATE [Employees]
+                       SET [ManagerID] = NULL
+                     WHERE [ManagerID] IN (
+                                                SELECT *
+                                                  FROM @employeesToDelete
+                                          )
+ 
+                    -- Since we removed all references to the employees we want to remove
+                    -- We can safely remove them
+                    DELETE
+                      FROM [Employees]
+                     WHERE [DepartmentID] = @departmentId
+ 
+                     DELETE 
+                       FROM [Departments]
+                      WHERE [DepartmentID] = @departmentId
+ 
+                      SELECT COUNT(*)
+                        FROM [Employees]
+                       WHERE [DepartmentID] = @departmentId
+             END
+ 
+GO
+ 
+EXEC [dbo].[usp_DeleteEmployeesFromDepartment] 7
+

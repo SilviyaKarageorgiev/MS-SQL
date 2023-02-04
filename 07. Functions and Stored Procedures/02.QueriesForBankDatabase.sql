@@ -74,3 +74,5 @@ AS
 GO
 
 EXEC [dbo].[usp_CalculateFutureValueForAccount] 1, 0.1
+
+GO

@@ -113,3 +113,28 @@ ORDER BY c.[Name] DESC, l.[Name], s.[Name]
 
 
 -- Problem 07. Count of Sites in Sofia Province
+
+  SELECT [l].[Province], 
+         [l].[Municipality],
+		 [l].[Name] AS [Location],
+		 COUNT(*) AS [CountOfSites]
+    FROM [Locations] AS [l]
+    JOIN [Sites] AS [s]
+      ON [l].[Id] = [s].[LocationId]
+   WHERE [l].[Province] = 'Sofia'
+GROUP BY [l].[Province], [l].[Municipality], [l].[Name]
+ORDER BY [CountOfSites] DESC, [l].[Name]
+
+
+-- Problem 08. Tourist Sites established BC
+
+  SELECT [s].[Name] AS [Site],
+         [l].[Name] AS [Location],
+         [l].[Municipality],
+         [l].[Province],
+         [s].[Establishment]
+    FROM [Sites] AS [s]
+    JOIN [Locations] AS [l]
+      ON [s].[LocationId] = [l].[Id]
+   WHERE LEFT([l].[Name], 1) NOT IN ('B', 'M', 'D') AND [s].[Establishment] LIKE '%BC%'
+ORDER BY [s].[Name]

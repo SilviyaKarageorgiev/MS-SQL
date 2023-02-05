@@ -172,3 +172,33 @@ SELECT DISTINCT SUBSTRING([t].[Name], CHARINDEX(' ', [t].[Name]) + 1, LEN([t].[N
       ON [c].[Id] = [s].[CategoryId]
    WHERE [c].[Name] = 'History and archaeology'
 ORDER BY [LastName]
+
+
+-- Problem 11
+
+CREATE FUNCTION udf_GetTouristsCountOnATouristSite (@Site VARCHAR(100))
+RETURNS INT
+AS
+BEGIN
+	  DECLARE @count INT = (
+		SELECT COUNT(t.Id)
+		  FROM Sites AS s
+		  JOIN SitesTourists AS st
+                    ON s.Id = st.SiteId
+		  JOIN Tourists AS t
+		    ON st.TouristId = t.Id
+		 WHERE s.Name = @Site
+      GROUP BY s.Name
+			)
+			RETURN(
+			CASE
+			WHEN @count IS NULL THEN 0
+			ELSE @count
+			END
+			)
+END
+
+GO
+
+SELECT dbo.udf_GetTouristsCountOnATouristSite ('Regional History Museum – Vratsa')
+

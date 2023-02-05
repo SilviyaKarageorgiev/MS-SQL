@@ -67,7 +67,7 @@ INSERT INTO Sites([Name], LocationId, CategoryId, Establishment)
 			('Karlanovo Pyramids', 65, 7, NULL),
 			('The Tomb of Tsar Sevt', 63, 8, 'V BC'),
 			('Sinite Kamani Natural Park', 17, 1, NULL),
-			('St. Petka of Bulgaria – Rupite', 92, 6, '1994')
+			('St. Petka of Bulgaria â€“ Rupite', 92, 6, '1994')
 
 
 -- Problem 03 
@@ -97,12 +97,12 @@ WHERE [Name] = 'Sleeping bag'
 ORDER BY Nationality, Age DESC, [Name]
 
 
--- Problem 06. Sites with Their Location and Category
+-- Problem 06
 
   SELECT 
-		 s.[Name] AS [Site], 
-		 l.[Name] AS [Location], 
-		 s.Establishment,
+	 s.[Name] AS [Site], 
+	 l.[Name] AS [Location], 
+	 s.Establishment,
          c.[Name] AS Category
     FROM Sites AS s
     JOIN Locations AS l
@@ -112,12 +112,12 @@ ORDER BY Nationality, Age DESC, [Name]
 ORDER BY c.[Name] DESC, l.[Name], s.[Name]
 
 
--- Problem 07. Count of Sites in Sofia Province
+-- Problem 07
 
   SELECT [l].[Province], 
          [l].[Municipality],
-		 [l].[Name] AS [Location],
-		 COUNT(*) AS [CountOfSites]
+	 [l].[Name] AS [Location],
+	 COUNT(*) AS [CountOfSites]
     FROM [Locations] AS [l]
     JOIN [Sites] AS [s]
       ON [l].[Id] = [s].[LocationId]
@@ -126,7 +126,7 @@ GROUP BY [l].[Province], [l].[Municipality], [l].[Name]
 ORDER BY [CountOfSites] DESC, [l].[Name]
 
 
--- Problem 08. Tourist Sites established BC
+-- Problem 08
 
   SELECT [s].[Name] AS [Site],
          [l].[Name] AS [Location],

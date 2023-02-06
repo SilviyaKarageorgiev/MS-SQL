@@ -185,3 +185,36 @@ INNER JOIN AnimalTypes
            DATEDIFF(YEAR, a.BirthDate, '01/01/2022') < 5 AND
            [at].AnimalType <> 'Birds'
   ORDER BY a.[Name]
+GO
+
+-- Problem 11
+
+CREATE FUNCTION [udf_GetVolunteersCountFromADepartment] (@VolunteersDepartment VARCHAR(30))
+    RETURNS INT
+             AS
+          BEGIN
+                    DECLARE @departmentId INT;
+                    SET @departmentId = (
+                                            SELECT [Id]
+                                              FROM [VolunteersDepartments]
+                                             WHERE [DepartmentName] = @VolunteersDepartment
+                                        );
+ 
+                    DECLARE @departmentVoluntersCount INT;
+                    SET @departmentVoluntersCount = (
+                                                        SELECT COUNT(*)
+                                                          FROM [Volunteers]
+                                                         WHERE [DepartmentId] = @departmentId
+                                                    );
+ 
+                    RETURN @departmentVoluntersCount;               
+            END
+ 
+GO
+ 
+SELECT dbo.udf_GetVolunteersCountFromADepartment ('Education program assistant')
+SELECT dbo.udf_GetVolunteersCountFromADepartment ('Guest engagement')
+SELECT dbo.udf_GetVolunteersCountFromADepartment ('Zoo events')
+
+GO
+

@@ -156,4 +156,32 @@ ORDER BY o.[Name],
 
 -- Problem 09
 
+    SELECT v.[Name],
+           v.PhoneNumber,
+           LTRIM(REPLACE(REPLACE(v.[Address], 'Sofia', ''), ',', ''))
+        AS [Address]
+      FROM Volunteers
+        AS v
+INNER JOIN VolunteersDepartments
+        AS vd
+        ON v.DepartmentId = vd.Id
+     WHERE vd.DepartmentName = 'Education program assistant' AND
+           v.[Address] LIKE '%Sofia%'
+  ORDER BY v.[Name]
+ 
 
+-- Problem 10
+
+ SELECT a.[Name],
+           DATEPART(YEAR, a.BirthDate)
+        AS BirthYear,
+           [at].AnimalType
+      FROM Animals
+        AS a
+INNER JOIN AnimalTypes
+        AS [at]
+        ON a.AnimalTypeId = [at].Id
+     WHERE a.OwnerId IS NULL AND
+           DATEDIFF(YEAR, a.BirthDate, '01/01/2022') < 5 AND
+           [at].AnimalType <> 'Birds'
+  ORDER BY a.[Name]

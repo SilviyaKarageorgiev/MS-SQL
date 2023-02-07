@@ -202,3 +202,48 @@ GO
 
 SELECT dbo.udf_GetTouristsCountOnATouristSite ('Regional History Museum – Vratsa')
 
+
+-- Problem 12
+
+CREATE PROCEDURE usp_AnnualRewardLottery(@TouristName VARCHAR(50))
+AS
+BEGIN
+	DECLARE @Count INT
+	SET @Count = (
+			SELECT Count(st.siteid)
+			FROM Tourists AS t
+			JOIN SitesTourists AS st
+			ON t.Id = st.TouristId
+			WHERE [Name] = @TouristName
+			GROUP BY [Name]
+		     )
+	IF (@Count >= 100)
+	BEGIN
+		UPDATE Tourists
+		SET Reward = 'Gold badge'
+		WHERE [Name] = @TouristName
+	END
+
+	ELSE IF (@Count >= 50)
+	BEGIN
+		UPDATE Tourists
+		SET Reward = 'Silver badge'
+		WHERE [Name] = @TouristName
+	END
+
+	ELSE IF (@Count >= 25)
+	BEGIN
+		UPDATE Tourists
+		SET Reward = 'Bronze badge'
+		WHERE [Name] = @TouristName
+	END
+
+	SELECT [Name], Reward FROM Tourists
+	WHERE [Name] = @TouristName
+
+END
+
+EXEC usp_AnnualRewardLottery 'Gerhild Lutgard'
+EXEC usp_AnnualRewardLottery 'Teodor Petrov'
+EXEC usp_AnnualRewardLottery 'Zac Walsh'
+EXEC usp_AnnualRewardLottery 'Brus Brown'

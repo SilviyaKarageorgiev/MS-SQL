@@ -185,3 +185,67 @@ GROUP BY p.FullName
 	 AND fd.TicketPrice > 2500
 ORDER BY ac.Model
 
+GO
+
+
+-- Problem 11
+
+CREATE FUNCTION udf_FlightDestinationsByEmail(@email VARCHAR(50))
+RETURNS INT
+AS
+BEGIN
+	DECLARE @counter INT = (
+	SELECT COUNT(*) FROM Passengers AS p
+	JOIN FlightDestinations AS fd
+	ON p.Id = fd.PassengerId
+	WHERE p.Email = @email
+	GROUP BY p.Id
+	)
+	RETURN 	ISNULL(@counter, 0)
+	
+END
+
+GO
+
+SELECT dbo.udf_FlightDestinationsByEmail ('PierretteDunmuir@gmail.com')
+SELECT dbo.udf_FlightDestinationsByEmail('Montacute@gmail.com')
+SELECT dbo.udf_FlightDestinationsByEmail('MerisShale@gmail.com')
+
+GO
+
+
+-- Problem 12
+
+CREATE PROCEDURE usp_SearchByAirportName @airportName VARCHAR(70)
+AS
+BEGIN
+		
+	SELECT 
+		ap.AirportName,
+		p.FullName,
+		CASE
+		WHEN fd.TicketPrice <= 400 THEN 'Low'
+		WHEN fd.TicketPrice BETWEEN 401 AND 1500 THEN 'Medium'
+		WHEN fd.TicketPrice > 1500 THEN 'High'
+		END AS LevelOfTickerPrice,
+		ac.Manufacturer,
+		ac.Condition,
+		act.TypeName
+	FROM Airports AS ap
+	JOIN FlightDestinations AS fd
+	ON ap.Id = fd.AirportId
+	JOIN Passengers AS p
+	ON p.Id = fd.PassengerId
+	JOIN Aircraft AS ac
+	ON ac.Id = fd.AircraftId
+	JOIN AircraftTypes AS act
+	ON ac.TypeId = act.Id
+	WHERE ap.AirportName = @airportName
+	ORDER BY ac.Manufacturer, p.FullName
+END
+
+GO
+
+EXEC usp_SearchByAirportName 'Sir Seretse Khama International Airport'
+
+GO

@@ -61,17 +61,16 @@ CREATE TABLE FlightDestinations
 	PassengerId INT FOREIGN KEY REFERENCES Passengers(Id) NOT NULL,
 	TicketPrice DECIMAL(18, 2) DEFAULT 15 NOT NULL
 )
-SELECT * FROM Pilots
-SELECT * FROM Aircraft
+
 
 -- Problem 02
 
 INSERT INTO Passengers(FullName, Email)
 	 SELECT CONCAT(p.FirstName, ' ', p.LastName) AS FullName,
-	 	    CONCAT(p.FirstName, p.LastName, '@gmail.com') AS Email
-	 	    FROM Pilots AS p
-	  WHERE p.Id BETWEEN 5 AND 15
-   ORDER BY p.Id
+	 CONCAT(p.FirstName, p.LastName, '@gmail.com') AS Email
+	 FROM Pilots AS p
+	 WHERE p.Id BETWEEN 5 AND 15
+   	 ORDER BY p.Id
 
 
 -- Problem 03
@@ -80,7 +79,7 @@ UPDATE Aircraft
    SET Condition = 'A'
  WHERE (Condition IN ('B', 'C'))
        AND ((FlightHours IS NULL) OR (FlightHours BETWEEN 0 AND 100)) 
-	   AND ([Year] >= 2013)
+       AND ([Year] >= 2013)
 
 
 -- Problem 04
@@ -103,59 +102,59 @@ ORDER BY FlightHours DESC
 -- Problem 06
 
   SELECT p.FirstName,
-		 p.LastName,
-		 a.Manufacturer,
-		 a.Model,
-		 a.FlightHours
-	FROM Pilots AS p
-	JOIN PilotsAircraft AS pa
-	  ON p.Id = pa.PilotId
-	JOIN Aircraft AS a
+	 p.LastName,
+	 a.Manufacturer,
+	 a.Model,
+	 a.FlightHours
+    FROM Pilots AS p
+    JOIN PilotsAircraft AS pa
+      ON p.Id = pa.PilotId
+    JOIN Aircraft AS a
       ON pa.AircraftId = a.Id
    WHERE a.FlightHours IS NOT NULL AND a.FlightHours <= 304
 ORDER BY a.FlightHours DESC,
-		 p.FirstName
+	 p.FirstName
 
 
 -- Problem 07
 
-  SELECT TOP(20)
-		 fd.Id,
-		 fd.[Start],
-		 p.FullName,
-		 a.AirportName,
-		 fd.TicketPrice
+      SELECT TOP(20)
+	     fd.Id,
+	     fd.[Start],
+	     p.FullName,
+	     a.AirportName,
+	     fd.TicketPrice
 	FROM FlightDestinations AS fd
 	JOIN Passengers AS p
 	  ON fd.PassengerId = p.Id
 	JOIN Airports AS a
 	  ON fd.AirportId = a.Id
-   WHERE DAY(fd.[Start]) % 2 = 0
-ORDER BY fd.TicketPrice DESC,
-		 a.AirportName
+       WHERE DAY(fd.[Start]) % 2 = 0
+    ORDER BY fd.TicketPrice DESC,
+	     a.AirportName
 
 
 -- Problem 08
 
-  SELECT 
-		 a.Id AS AircraftId,
-		 a.Manufacturer,
-		 a.FlightHours,
-		 COUNT(a.Id) AS FlightDestinationsCount,
-		 ROUND(AVG(fd.TicketPrice), 2) AS AvgPrice
+      SELECT  
+	     a.Id AS AircraftId,
+	     a.Manufacturer,
+	     a.FlightHours,
+	     COUNT(a.Id) AS FlightDestinationsCount,
+	     ROUND(AVG(fd.TicketPrice), 2) AS AvgPrice
 	FROM Aircraft AS a
-    JOIN FlightDestinations AS fd
-      ON a.Id = fd.AircraftId
-GROUP BY a.Id, a.Manufacturer, a.FlightHours
-  HAVING COUNT(a.Id) >= 2
-ORDER BY COUNT(a.Id) DESC, a.Id
+        JOIN FlightDestinations AS fd
+          ON a.Id = fd.AircraftId
+    GROUP BY a.Id, a.Manufacturer, a.FlightHours
+      HAVING COUNT(a.Id) >= 2
+    ORDER BY COUNT(a.Id) DESC, a.Id
 
 
 -- Problem 09
 
   SELECT
-		 p.FullName,
-	     COUNT(fd.Id) AS CountOfAircraft,
+	 p.FullName,
+	 COUNT(fd.Id) AS CountOfAircraft,
          SUM(fd.TicketPrice) AS TotalPayed
     FROM Passengers AS p
     JOIN FlightDestinations AS fd
@@ -167,12 +166,12 @@ GROUP BY p.FullName
 
 -- Problem 10
 
-  SELECT
-		 a.AirportName, 
-		 fd.[Start] AS DayTime,
-		 fd.TicketPrice,
-		 p.FullName,
-		 ac.Manufacturer,
+      SELECT
+	     a.AirportName, 
+	     fd.[Start] AS DayTime,
+	     fd.TicketPrice,
+	     p.FullName,
+	     ac.Manufacturer,
 	     ac.Model
 	FROM FlightDestinations AS fd
 	JOIN Airports AS a
@@ -181,9 +180,9 @@ GROUP BY p.FullName
 	  ON fd.PassengerId = p.Id
 	JOIN Aircraft AS ac
 	  ON fd.AircraftId = ac.Id
-   WHERE CAST(fd.[Start] AS TIME) BETWEEN '6:00' AND '20:00'
+       WHERE CAST(fd.[Start] AS TIME) BETWEEN '6:00' AND '20:00'
 	 AND fd.TicketPrice > 2500
-ORDER BY ac.Model
+    ORDER BY ac.Model
 
 GO
 
@@ -196,10 +195,10 @@ AS
 BEGIN
 	DECLARE @counter INT = (
 	SELECT COUNT(*) FROM Passengers AS p
-	JOIN FlightDestinations AS fd
-	ON p.Id = fd.PassengerId
-	WHERE p.Email = @email
-	GROUP BY p.Id
+	  JOIN FlightDestinations AS fd
+	    ON p.Id = fd.PassengerId
+	 WHERE p.Email = @email
+      GROUP BY p.Id
 	)
 	RETURN 	ISNULL(@counter, 0)
 	
@@ -221,31 +220,30 @@ AS
 BEGIN
 		
 	SELECT 
-		ap.AirportName,
-		p.FullName,
-		CASE
-		WHEN fd.TicketPrice <= 400 THEN 'Low'
-		WHEN fd.TicketPrice BETWEEN 401 AND 1500 THEN 'Medium'
-		WHEN fd.TicketPrice > 1500 THEN 'High'
-		END AS LevelOfTickerPrice,
-		ac.Manufacturer,
-		ac.Condition,
-		act.TypeName
+	     ap.AirportName,
+	     p.FullName,
+	     CASE
+	     WHEN fd.TicketPrice <= 400 THEN 'Low'
+	     WHEN fd.TicketPrice BETWEEN 401 AND 1500 THEN 'Medium'
+	     WHEN fd.TicketPrice > 1500 THEN 'High'
+	     END AS LevelOfTickerPrice,
+	     ac.Manufacturer,
+	     ac.Condition,
+	     act.TypeName
 	FROM Airports AS ap
 	JOIN FlightDestinations AS fd
-	ON ap.Id = fd.AirportId
+	  ON ap.Id = fd.AirportId
 	JOIN Passengers AS p
-	ON p.Id = fd.PassengerId
+	  ON p.Id = fd.PassengerId
 	JOIN Aircraft AS ac
-	ON ac.Id = fd.AircraftId
+	  ON ac.Id = fd.AircraftId
 	JOIN AircraftTypes AS act
-	ON ac.TypeId = act.Id
-	WHERE ap.AirportName = @airportName
-	ORDER BY ac.Manufacturer, p.FullName
+	  ON ac.TypeId = act.Id
+       WHERE ap.AirportName = @airportName
+    ORDER BY ac.Manufacturer, p.FullName
 END
 
 GO
 
 EXEC usp_SearchByAirportName 'Sir Seretse Khama International Airport'
 
-GO

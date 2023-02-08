@@ -149,3 +149,39 @@ ORDER BY fd.TicketPrice DESC,
 GROUP BY a.Id, a.Manufacturer, a.FlightHours
   HAVING COUNT(a.Id) >= 2
 ORDER BY COUNT(a.Id) DESC, a.Id
+
+
+-- Problem 09
+
+  SELECT
+		 p.FullName,
+	     COUNT(fd.Id) AS CountOfAircraft,
+         SUM(fd.TicketPrice) AS TotalPayed
+    FROM Passengers AS p
+    JOIN FlightDestinations AS fd
+      ON p.Id = fd.PassengerId
+   WHERE SUBSTRING(p.FullName, 2, 1) = 'a'
+GROUP BY p.FullName
+  HAVING COUNT(fd.Id) > 1
+
+
+-- Problem 10
+
+  SELECT
+		 a.AirportName, 
+		 fd.[Start] AS DayTime,
+		 fd.TicketPrice,
+		 p.FullName,
+		 ac.Manufacturer,
+	     ac.Model
+	FROM FlightDestinations AS fd
+	JOIN Airports AS a
+	  ON fd.AirportId = a.Id
+	JOIN Passengers AS p
+	  ON fd.PassengerId = p.Id
+	JOIN Aircraft AS ac
+	  ON fd.AircraftId = ac.Id
+   WHERE CAST(fd.[Start] AS TIME) BETWEEN '6:00' AND '20:00'
+	 AND fd.TicketPrice > 2500
+ORDER BY ac.Model
+

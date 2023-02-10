@@ -89,24 +89,24 @@ WHERE AssigneeId = 6
 
 DELETE FROM RepositoriesContributors
 WHERE RepositoryId = (
-					 SELECT Id 
-					 FROM Repositories
-					 WHERE [Name] = 'Softuni-Teamwork')
+			SELECT Id 
+			  FROM Repositories
+			 WHERE [Name] = 'Softuni-Teamwork')
 
 DELETE FROM Issues
 WHERE RepositoryId = (
-					 SELECT Id
-					 FROM Repositories
-					 WHERE [Name] = 'Softuni-Teamwork')
+			SELECT Id
+			  FROM Repositories
+			 WHERE [Name] = 'Softuni-Teamwork')
 
 
 -- Problem 05
 
   SELECT
-	     Id,
-	     [Message],
-	     RepositoryId,
-  	     ContributorId
+	 Id,
+	 [Message],
+	 RepositoryId,
+  	 ContributorId
     FROM Commits
 ORDER BY Id, [Message], RepositoryId, ContributorId
 
@@ -131,8 +131,8 @@ ORDER BY i.Id DESC, i.AssigneeId
 -- Problem 08
 
    SELECT 
-		  f.Id,
-		  f.[Name],
+	  f.Id,
+	  f.[Name],
           CONCAT(f.Size, 'KB') AS Size
      FROM Files AS f
 LEFT JOIN Files AS pf ON f.Id = pf.ParentId
@@ -143,7 +143,7 @@ LEFT JOIN Files AS pf ON f.Id = pf.ParentId
 -- Problem 09
 
    SELECT TOP(5)
-		  r.Id,
+	  r.Id,
           r.[Name],
           COUNT(c.Id) AS Commits
      FROM Commits AS c
@@ -201,3 +201,4 @@ END
 GO
 
 EXEC usp_SearchForFiles 'txt'
+

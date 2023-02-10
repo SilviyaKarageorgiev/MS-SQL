@@ -112,7 +112,7 @@ ORDER BY [Description], c.[Name]
 
 -- Problem 07
 
-SELECT TOP(5)
+  SELECT TOP(5)
          c.[Name] AS CategoryName,
          COUNT(r.Id) AS ReportsNumber
     FROM Categories AS c
@@ -197,12 +197,12 @@ CREATE PROCEDURE usp_AssignEmployeeToReport(@EmployeeId INT, @ReportId INT)
 AS
 BEGIN TRANSACTION
 	DECLARE @EmployeeDepartId INT = (SELECT DepartmentId
-										FROM Employees AS e
-										WHERE e.Id = @EmployeeId)
+					   FROM Employees AS e
+					  WHERE e.Id = @EmployeeId)
 	DECLARE @ReportDepartId INT = (SELECT c.DepartmentId
-										FROM Reports AS r
-										JOIN Categories AS c ON r.CategoryId = c.Id
-										WHERE r.Id = @ReportId)
+					 FROM Reports AS r
+					 JOIN Categories AS c ON r.CategoryId = c.Id
+					WHERE r.Id = @ReportId)
 	IF(@EmployeeDepartId = @ReportDepartId)
 		BEGIN
 			UPDATE Reports

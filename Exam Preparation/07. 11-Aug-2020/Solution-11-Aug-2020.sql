@@ -142,9 +142,9 @@ LEFT JOIN Feedbacks AS f ON f.CustomerId = c.Id
     FROM Customers
    WHERE (Age >= 21 AND FirstName LIKE '%an%') 
       OR (RIGHT(PhoneNumber, 2) = 38 AND CountryId <> (
-								   SELECT Id 
-								     FROM Countries
-								    WHERE [Name] = 'Greece'))
+					SELECT Id 
+					  FROM Countries
+					 WHERE [Name] = 'Greece'))
 ORDER BY FirstName, Age DESC
 
 
@@ -180,10 +180,10 @@ GO
 -- Problem 11
 
 CREATE VIEW v_UserWithCountries AS(
-SELECT CONCAT(cust.FirstName, ' ', cust.LastName)
-AS CustomerName, cust.Age, cust.Gender, c.[Name] AS CountryName
-FROM Customers AS cust
-JOIN Countries AS c ON c.Id = cust.CountryId
+       SELECT CONCAT(cust.FirstName, ' ', cust.LastName)
+           AS CustomerName, cust.Age, cust.Gender, c.[Name] AS CountryName
+         FROM Customers AS cust
+         JOIN Countries AS c ON c.Id = cust.CountryId
 )
 
 GO

@@ -102,7 +102,7 @@ UPDATE Brands
 -- Problem 04
 
 DELETE FROM Clients
-WHERE AddressId = (
+WHERE AddressId IN (
 	SELECT Id FROM Addresses
 	 WHERE Country LIKE 'C%'
 )

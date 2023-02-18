@@ -80,7 +80,7 @@ VALUES
 
 UPDATE Animals
    SET OwnerId = (
-     SELECT Id
+         SELECT Id
 	   FROM Owners
 	  WHERE [Name] = 'Kaloqn Stoqnov'
 )
@@ -97,8 +97,7 @@ DELETE
 	 WHERE DepartmentName = 'Education program assistant'
 	)
 
-DELETE
-  FROM VolunteersDepartments
+DELETE FROM VolunteersDepartments
  WHERE DepartmentName = 'Education program assistant'
 
 
@@ -106,9 +105,9 @@ DELETE
 
   SELECT [Name],
          PhoneNumber, 
-		 [Address],
-		 AnimalId, 
-		 DepartmentId
+	 [Address],
+	 AnimalId, 
+	 DepartmentId
     FROM Volunteers
 ORDER BY [Name], AnimalId, DepartmentId
 
@@ -116,12 +115,12 @@ ORDER BY [Name], AnimalId, DepartmentId
 -- Problem 06
 
   SELECT a.[Name],
-		 at.AnimalType,
-		 FORMAT(a.BirthDate, 'dd.MM.yyyy')
+	 at.AnimalType,
+	 FORMAT(a.BirthDate, 'dd.MM.yyyy')
       AS BirthDate
-	FROM Animals AS a
-	JOIN AnimalTypes AS [at]
-	  ON a.AnimalTypeId = [at].Id
+    FROM Animals AS a
+    JOIN AnimalTypes AS [at]
+      ON a.AnimalTypeId = [at].Id
 ORDER BY a.[Name]
 
 
@@ -140,18 +139,18 @@ LEFT JOIN Animals AS a
 -- Problem 08
 
   SELECT CONCAT(o.[Name], '-', a.[Name]) AS OwnerAnimals,
-		 o.PhoneNumber,
-		 ac.CageId
-	FROM Owners AS o
-	JOIN Animals AS a
-	  ON o.Id = a.OwnerId
-	JOIN AnimalTypes AS [at]
-	  ON a.AnimalTypeId = [at].Id
+	 o.PhoneNumber,
+	 ac.CageId
+    FROM Owners AS o
+    JOIN Animals AS a
+      ON o.Id = a.OwnerId
+    JOIN AnimalTypes AS [at]
+      ON a.AnimalTypeId = [at].Id
     JOIN AnimalsCages AS ac
-	  ON a.Id = ac.AnimalId
+      ON a.Id = ac.AnimalId
    WHERE [at].AnimalType = 'Mammals'
 ORDER BY o.[Name],
-		 a.[Name] DESC
+	 a.[Name] DESC
 
 
 -- Problem 09
@@ -172,7 +171,7 @@ INNER JOIN VolunteersDepartments
 
 -- Problem 10
 
- SELECT a.[Name],
+    SELECT a.[Name],
            DATEPART(YEAR, a.BirthDate)
         AS BirthYear,
            [at].AnimalType
@@ -185,6 +184,7 @@ INNER JOIN AnimalTypes
            DATEDIFF(YEAR, a.BirthDate, '01/01/2022') < 5 AND
            [at].AnimalType <> 'Birds'
   ORDER BY a.[Name]
+  
 GO
 
 -- Problem 11

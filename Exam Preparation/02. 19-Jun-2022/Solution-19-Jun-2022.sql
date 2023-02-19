@@ -167,6 +167,17 @@ INNER JOIN VolunteersDepartments
      WHERE vd.DepartmentName = 'Education program assistant' AND
            v.[Address] LIKE '%Sofia%'
   ORDER BY v.[Name]
+  
+  
+  -- Another solution
+  
+  SELECT v.[Name], 
+         v.PhoneNumber, 
+         TRIM(SUBSTRING(v.[Address], CHARINDEX(',', v.[Address]) + 1, LEN(v.[Address])))
+    FROM Volunteers AS v
+    JOIN VolunteersDepartments AS vd ON v.DepartmentId = vd.Id
+   WHERE v.[Address] LIKE '%Sofia%' AND vd.DepartmentName = 'Education program assistant'
+ORDER BY v.[Name]
  
 
 -- Problem 10

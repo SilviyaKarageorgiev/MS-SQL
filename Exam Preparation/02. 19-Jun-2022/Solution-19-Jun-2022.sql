@@ -200,27 +200,17 @@ GO
 
 -- Problem 11
 
-CREATE FUNCTION [udf_GetVolunteersCountFromADepartment] (@VolunteersDepartment VARCHAR(30))
-    RETURNS INT
-             AS
-          BEGIN
-                    DECLARE @departmentId INT;
-                    SET @departmentId = (
-                                            SELECT [Id]
-                                              FROM [VolunteersDepartments]
-                                             WHERE [DepartmentName] = @VolunteersDepartment
-                                        );
- 
-                    DECLARE @departmentVoluntersCount INT;
-                    SET @departmentVoluntersCount = (
-                                                        SELECT COUNT(*)
-                                                          FROM [Volunteers]
-                                                         WHERE [DepartmentId] = @departmentId
-                                                    );
- 
-                    RETURN @departmentVoluntersCount;               
-            END
- 
+CREATE FUNCTION udf_GetVolunteersCountFromADepartment (@VolunteersDepartment VARCHAR(30))
+RETURNS INT
+AS
+BEGIN
+	RETURN ISNULL(
+		(SELECT COUNT(v.Id) FROM Volunteers AS v
+		   JOIN VolunteersDepartments AS vd ON v.DepartmentId = vd.Id
+		  WHERE vd.DepartmentName = @VolunteersDepartment), 0
+	)
+END
+
 GO
  
 SELECT dbo.udf_GetVolunteersCountFromADepartment ('Education program assistant')

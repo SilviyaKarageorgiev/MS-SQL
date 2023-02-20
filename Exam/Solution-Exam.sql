@@ -143,13 +143,13 @@ LEFT JOIN CreatorsBoardgames AS cb
 
   SELECT TOP(5)
          b.[Name], 
-		 b.Rating,
-		 c.[Name]
+	 b.Rating,
+	 c.[Name]
     FROM Boardgames AS b
     JOIN PlayersRanges AS p ON b.PlayersRangeId = p.Id
     JOIN Categories AS c ON c.Id = b.CategoryId
    WHERE (b.Rating > 7.00 AND b.[Name] LIKE '%a%') 
-         OR (b.Rating > 7.50 AND p.PlayersMin >= 2 AND p.PlayersMax <= 5)
+      OR (b.Rating > 7.50 AND p.PlayersMin >= 2 AND p.PlayersMax <= 5)
 ORDER BY b.[Name], b.Rating DESC
 
 
@@ -170,7 +170,7 @@ ORDER BY FullName
 
   SELECT c.LastName, 
          CEILING(AVG(b.Rating)) AS AverageRating, 
-		 p.[Name] AS PublisherName
+	 p.[Name] AS PublisherName
     FROM Creators AS c
     JOIN CreatorsBoardgames AS cb ON cb.CreatorId = c.Id
     JOIN Boardgames AS b ON cb.BoardgameId = b.Id
@@ -190,9 +190,9 @@ AS
 BEGIN
 RETURN ISNULL(
 	(SELECT COUNT(cb.BoardgameId)
-       FROM Creators AS c
-       JOIN CreatorsBoardgames AS cb ON c.Id = cb.CreatorId
-      WHERE c.FirstName = @name), 0)
+           FROM Creators AS c
+           JOIN CreatorsBoardgames AS cb ON c.Id = cb.CreatorId
+          WHERE c.FirstName = @name), 0)
 END
 
 GO
@@ -207,12 +207,12 @@ GO
 CREATE PROCEDURE usp_SearchByCategory(@category VARCHAR(50))
 AS
 BEGIN
-	SELECT b.[Name], 
-	       b.YearPublished,
-		   b.Rating, 
-		   c.[Name] AS CategoryName,
+    SELECT b.[Name], 
+	   b.YearPublished,
+	   b.Rating, 
+	   c.[Name] AS CategoryName,
            p.[Name] AS PublisherName, 
-		   CONCAT(pr.PlayersMin, ' ', 'people') AS MinPlayers,
+	   CONCAT(pr.PlayersMin, ' ', 'people') AS MinPlayers,
            CONCAT(pr.PlayersMax, ' ', 'people') AS MaxPlayers
       FROM Boardgames AS b
       JOIN Categories AS c ON c.Id = b.CategoryId
